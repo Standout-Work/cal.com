@@ -129,8 +129,12 @@ export class NoopLicenseKeyService implements ILicenseKeyService {
     return Promise.resolve();
   }
 
+  /**
+   * No license key = self-hosted without a commercial license.
+   * Return true so the product is not gated (AGPL self-hosted use is allowed).
+   */
   async checkLicense(): Promise<boolean> {
-    return Promise.resolve(process.env.NEXT_PUBLIC_IS_E2E === "1");
+    return Promise.resolve(true);
   }
 }
 

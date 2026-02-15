@@ -30,8 +30,9 @@ export class DeploymentsService {
       licenseKey = deployment?.licenseKey ?? undefined;
     }
 
+    // No license key = self-hosted without commercial license; allow (AGPL self-hosted use)
     if (!licenseKey) {
-      return false;
+      return true;
     }
     const licenseKeyUrl = this.configService.get("api.licenseKeyUrl") + `/${licenseKey}`;
     const cachedData = await this.redisService.redis.get(getLicenseCacheKey(licenseKey));
