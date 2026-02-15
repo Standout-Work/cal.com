@@ -117,6 +117,7 @@ export const roundRobinManualReassignment = async ({
         createdAt: new Date(0), // use earliest possible date as fallback
         groupId: null,
         location: null,
+        ignoreForAvailability: false,
       }));
 
   const fixedHost = eventTypeHosts.find((host) => host.isFixed);

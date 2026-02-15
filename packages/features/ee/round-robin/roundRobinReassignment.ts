@@ -115,6 +115,7 @@ export const roundRobinReassignment = async ({
         createdAt: new Date(0), // use earliest possible date as fallback
         groupId: null,
         location: null,
+        ignoreForAvailability: false,
       }));
 
   if (eventType.hosts.length === 0) {
