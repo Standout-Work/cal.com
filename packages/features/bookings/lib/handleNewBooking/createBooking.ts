@@ -208,6 +208,8 @@ function getAttendeesData(evt: Pick<CalendarEvent, "attendees" | "team">) {
     timeZone: attendee.timeZone,
     locale: attendee.language.locale,
     phoneNumber: attendee.phoneNumber,
+    linkedinUrl: attendee.linkedinUrl ?? undefined,
+    outreachEmail: attendee.outreachEmail ?? undefined,
   }));
 }
 

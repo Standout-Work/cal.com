@@ -18,6 +18,8 @@ export type Invitee = {
   lastName: string;
   timeZone: string;
   phoneNumber?: string;
+  linkedinUrl?: string | null;
+  outreachEmail?: string | null;
   language: {
     translate: TFunction;
     locale: string;

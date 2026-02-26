@@ -42,6 +42,8 @@ export type Person = {
   timeFormat?: TimeFormat;
   bookingSeat?: BookingSeat | null;
   phoneNumber?: string | null;
+  linkedinUrl?: string | null;
+  outreachEmail?: string | null;
 };
 
 export type TeamMember = {
@@ -51,6 +53,8 @@ export type TeamMember = {
   phoneNumber?: string | null;
   timeZone: string;
   language: { translate: TFunction; locale: string };
+  linkedinUrl?: string | null;
+  outreachEmail?: string | null;
 };
 
 export type EventBusyDate = {
