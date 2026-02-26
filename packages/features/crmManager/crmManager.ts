@@ -47,6 +47,7 @@ export default class CrmManager {
         email: attendee.email,
         name: attendee.name,
         phone: attendee.phoneNumber ?? undefined,
+        linkedinUrl: attendee.linkedinUrl ?? undefined,
       }));
     const createdContacts = await this.createContacts(
       contactsToCreate,

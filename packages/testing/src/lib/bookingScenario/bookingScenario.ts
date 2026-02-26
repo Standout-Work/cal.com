@@ -2307,11 +2307,13 @@ export function getMockBookingReference(
 }
 
 export function getMockBookingAttendee(
-  attendee: Omit<Attendee, "bookingId" | "phoneNumber" | "email" | "noShow"> & {
+  attendee: Omit<Attendee, "bookingId" | "phoneNumber" | "email" | "noShow" | "linkedinUrl" | "outreachEmail"> & {
     bookingSeat?: AttendeeBookingSeatInput;
     phoneNumber?: string | null;
     email: string;
     noShow?: boolean;
+    linkedinUrl?: string | null;
+    outreachEmail?: string | null;
   }
 ) {
   return {
@@ -2323,6 +2325,8 @@ export function getMockBookingAttendee(
     bookingSeat: attendee.bookingSeat || null,
     phoneNumber: attendee.phoneNumber ?? undefined,
     noShow: attendee.noShow ?? false,
+    linkedinUrl: attendee.linkedinUrl ?? null,
+    outreachEmail: attendee.outreachEmail ?? null,
   };
 }
 

@@ -12,6 +12,7 @@ export interface ContactCreateInput {
   email: string;
   name: string;
   phone?: string | null;
+  linkedinUrl?: string | null;
 }
 
 export interface Contact {

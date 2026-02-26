@@ -137,6 +137,10 @@ import handleSeats from "../handleSeats/handleSeats";
 import type { IBookingService } from "../interfaces/IBookingService";
 import { getBookingAuditActorForNewBooking } from "../handleNewBooking/getBookingAuditActorForNewBooking";
 import { isWithinMinimumRescheduleNotice } from "../reschedule/isWithinMinimumRescheduleNotice";
+import {
+  extractLinkedinUrlFromResponses,
+  reconcileAttendeeByLinkedin,
+} from "../handleNewBooking/attendeeReconciliation";
 
 const translator = short();
 
@@ -1395,14 +1399,35 @@ async function handler(
     }
   }
 
+  const linkedinUrl = extractLinkedinUrlFromResponses(
+    reqBody.responses as Record<string, unknown> | null | undefined
+  );
+  let reconciledEmail = bookerEmail;
+  let outreachEmail: string | null = null;
+
+  if (linkedinUrl) {
+    const reconciliation = await reconcileAttendeeByLinkedin(linkedinUrl, bookerEmail);
+    if (reconciliation) {
+      reconciledEmail = reconciliation.reconciledEmail;
+      outreachEmail = reconciliation.outreachEmail;
+      tracingLogger.info("Attendee reconciled via LinkedIn", {
+        linkedinUrl,
+        reconciledEmail,
+        outreachEmail,
+      });
+    }
+  }
+
   const invitee: Invitee = [
     {
-      email: bookerEmail,
+      email: reconciledEmail,
       name: fullName,
       phoneNumber: bookerPhoneNumber,
       firstName: (typeof bookerName === "object" && bookerName.firstName) || "",
       lastName: (typeof bookerName === "object" && bookerName.lastName) || "",
       timeZone: attendeeTimezone,
+      linkedinUrl,
+      outreachEmail,
       language: { translate: tAttendees, locale: attendeeLanguage ?? "en" },
     },
   ];
