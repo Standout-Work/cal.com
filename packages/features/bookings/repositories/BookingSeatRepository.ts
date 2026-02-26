@@ -34,6 +34,8 @@ export class BookingSeatRepository {
             email: true,
             locale: true,
             timeZone: true,
+            linkedinUrl: true,
+            outreachEmail: true,
           },
         },
       },
